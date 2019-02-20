@@ -21,14 +21,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureTweetTextView];
+    [self configureTweetTextView]; // Оформление
 }
 
 - (IBAction)showShareAction:(id)sender {
+    // Скрываем клавиатуру если она открыта
     if([self.tweetTextView isFirstResponder]){
         [self.tweetTextView resignFirstResponder];
     }
+    
+    // Настраиваем окно с сообщением
     UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Test title" message:@"Tweet your note" preferredStyle:UIAlertControllerStyleAlert];
+    
+    // Настраиваем и добавляем кнопку отмены
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault  handler:nil];
+    [actionController addAction:cancelAction];
+    
+    // Показываем окно с сообщением
     [self presentViewController:actionController animated:YES completion:nil];
 }
 
