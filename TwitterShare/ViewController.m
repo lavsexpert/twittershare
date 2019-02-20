@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
 
 - (void) configureTweetTextView;
+- (void) showAlertMessage: (NSString *) myMessage;
 
 @end
 
@@ -24,6 +25,15 @@
     [self configureTweetTextView]; // Оформление
 }
 
+// Показ сообщения в модальном окне
+- (void) showAlertMessage: (NSString *) myMessage{
+    UIAlertController *alertController;
+    alertController = [UIAlertController alertControllerWithTitle:@"TwitterShare" message:myMessage preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+// При нажатии на кнопку
 - (IBAction)showShareAction:(id)sender {
     // Скрываем клавиатуру если она открыта
     if([self.tweetTextView isFirstResponder]){
@@ -31,13 +41,27 @@
     }
     
     // Настраиваем окно с сообщением
-    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Test title" message:@"Tweet your note" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"" message:@"Tweet your note" preferredStyle:UIAlertControllerStyleAlert];
     
     // Настраиваем кнопку отмены
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault  handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleDefault  handler:nil];
     
     // Настраиваем кнопку tweet
-    UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:@"Tweet" style:UIAlertActionStyleDefault  handler:nil];
+    UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:@"Твитнуть" style:UIAlertActionStyleDefault  handler:
+          ^(UIAlertAction *action){
+              if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
+                  SLComposeViewController *twitterVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+                  if([self.tweetTextView.text length] < 140){
+                      [twitterVC setInitialText:self.tweetTextView.text];
+                  } else {
+                      NSString *shortText = [self.tweetTextView.text substringToIndex:140];
+                      [twitterVC setInitialText:shortText];
+                  }
+                  [self presentViewController:twitterVC animated:YES completion:nil];
+              } else {
+                  [self showAlertMessage:@"Ты не вошёл в Twitter"];
+              }
+          }];
     
     // Добавляем кнопки
     [actionController addAction:tweetAction];
@@ -47,6 +71,7 @@
     [self presentViewController:actionController animated:YES completion:nil];
 }
 
+// Оформление текстового поля
 - (void) configureTweetTextView{
     self.tweetTextView.layer.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.9 alpha:1.0].CGColor;
     self.tweetTextView.layer.cornerRadius = 10.0;
