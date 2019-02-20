@@ -33,10 +33,16 @@
     // Настраиваем окно с сообщением
     UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Test title" message:@"Tweet your note" preferredStyle:UIAlertControllerStyleAlert];
     
-    // Настраиваем и добавляем кнопку отмены
+    // Настраиваем кнопку отмены
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault  handler:nil];
-    [actionController addAction:cancelAction];
     
+    // Настраиваем кнопку tweet
+    UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:@"Tweet" style:UIAlertActionStyleDefault  handler:nil];
+    
+    // Добавляем кнопки
+    [actionController addAction:tweetAction];
+    [actionController addAction:cancelAction];
+
     // Показываем окно с сообщением
     [self presentViewController:actionController animated:YES completion:nil];
 }
