@@ -28,7 +28,7 @@
 // Показ сообщения в модальном окне
 - (void) showAlertMessage: (NSString *) myMessage{
     UIAlertController *alertController;
-    alertController = [UIAlertController alertControllerWithTitle:@"TwitterShare" message:myMessage preferredStyle:UIAlertControllerStyleAlert];
+    alertController = [UIAlertController alertControllerWithTitle:@"Поделиться" message:myMessage preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleDefault handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -41,7 +41,7 @@
     }
     
     // Настраиваем окно с сообщением
-    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"" message:@"Tweet your note" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Поделиться" message:@"Где поделиться текстом?" preferredStyle:UIAlertControllerStyleAlert];
     
     // Настраиваем кнопку отмены
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleDefault  handler:nil];
@@ -67,7 +67,14 @@
               }
           }];
     
+    // Настраиваем кнопку facebook
+    UIAlertAction *facebookAction = [UIAlertAction actionWithTitle:@"Пост в Фейсбуке" style:UIAlertActionStyleDefault  handler:^(UIAlertAction *action){
+        [self showAlertMessage:@"Вы нажали кнопку Фейсбук"];
+    }];
+                                     
+
     // Добавляем кнопки
+    [actionController addAction:facebookAction];
     [actionController addAction:tweetAction];
     [actionController addAction:cancelAction];
 
