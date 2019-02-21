@@ -15,6 +15,7 @@
 		E24A77F1221D75D400072D08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E24A77EF221D75D400072D08 /* LaunchScreen.storyboard */; };
 		E24A77F4221D75D400072D08 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E24A77F3221D75D400072D08 /* main.m */; };
 		E24A77FC221D7FAA00072D08 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E24A77FB221D7FAA00072D08 /* Social.framework */; };
+		E24A77FE221E937E00072D08 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E24A77FD221E937E00072D08 /* SafariServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		E24A77F2221D75D400072D08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E24A77F3221D75D400072D08 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E24A77FB221D7FAA00072D08 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		E24A77FD221E937E00072D08 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E24A77FE221E937E00072D08 /* SafariServices.framework in Frameworks */,
 				E24A77FC221D7FAA00072D08 /* Social.framework in Frameworks */,
 				12CF383432212DE1CD825C22 /* Pods_TwitterShare.framework in Frameworks */,
 			);
@@ -93,6 +96,7 @@
 		E24A77FA221D7FAA00072D08 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E24A77FD221E937E00072D08 /* SafariServices.framework */,
 				E24A77FB221D7FAA00072D08 /* Social.framework */,
 				0F0AA863EAA5AC7385045139 /* Pods_TwitterShare.framework */,
 			);
