@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "Social/Social.h"
-#import <TwitterKit/TWTRKit.h>
 
 @interface ViewController ()
 
@@ -50,8 +49,6 @@
     // Настраиваем кнопку tweet
     UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:@"Твитнуть" style:UIAlertActionStyleDefault  handler:
           ^(UIAlertAction *action){
-              
-              /*
               if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
                   SLComposeViewController *twitterVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
                   if([self.tweetTextView.text length] < 140){
@@ -64,7 +61,6 @@
               } else {
                   [self showAlertMessage:@"Ты не вошёл в Twitter"];
               }
-               */
           }];
     
     // Добавляем кнопки
