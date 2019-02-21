@@ -79,13 +79,12 @@
         }
     }];
     
-    // Настраиваем кнопку Другие
-    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"Поделиться в других сетях" style:UIAlertActionStyleDefault  handler:^(UIAlertAction *action){
+    // Настраиваем кнопку Ещё
+    UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"Ещё" style:UIAlertActionStyleDefault  handler:^(UIAlertAction *action){
         UIActivityViewController *moreVC = [[UIActivityViewController alloc] initWithActivityItems:@[self.tweetTextView.text] applicationActivities:nil];
         [self presentViewController:moreVC animated:YES completion:nil];
         
     }];
-
 
     // Добавляем кнопки
     [actionController addAction:tweetAction];
