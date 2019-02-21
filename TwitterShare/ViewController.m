@@ -70,7 +70,10 @@
     // Настраиваем кнопку facebook
     UIAlertAction *facebookAction = [UIAlertAction actionWithTitle:@"Пост в Фейсбуке" style:UIAlertActionStyleDefault  handler:^(UIAlertAction *action){
         if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
-            [self showShareAction:@"Фейсбук доступен"];
+            //[self showShareAction:@"Фейсбук доступен"];
+            SLComposeViewController *facebookVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+            [facebookVC setInitialText:self.tweetTextView.text];
+            [self presentViewController:facebookVC animated:YES completion:nil];
         } else {
             [self showAlertMessage:@"Войдите в Фейсбук"];
         }
