@@ -69,7 +69,11 @@
     
     // Настраиваем кнопку facebook
     UIAlertAction *facebookAction = [UIAlertAction actionWithTitle:@"Пост в Фейсбуке" style:UIAlertActionStyleDefault  handler:^(UIAlertAction *action){
-        [self showAlertMessage:@"Вы нажали кнопку Фейсбук"];
+        if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
+            [self showShareAction:@"Фейсбук доступен"];
+        } else {
+            [self showAlertMessage:@"Войдите в Фейсбук"];
+        }
     }];
                                      
 
