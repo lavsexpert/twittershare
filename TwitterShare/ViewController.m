@@ -51,6 +51,8 @@
           ^(UIAlertAction *action){
               if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
                   SLComposeViewController *twitterVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+                  
+                  // Отправляем текст в Twitter (обрезая до 140 символов, если он длиннее)
                   if([self.tweetTextView.text length] < 140){
                       [twitterVC setInitialText:self.tweetTextView.text];
                   } else {
@@ -58,6 +60,8 @@
                       [twitterVC setInitialText:shortText];
                   }
                   [self presentViewController:twitterVC animated:YES completion:nil];
+                  
+              // Если не удалось подключиться к Twitter - сообщаем об этом
               } else {
                   [self showAlertMessage:@"Ты не вошёл в Twitter"];
               }
