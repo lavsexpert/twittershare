@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <TwitterKit/TWTRKit.h>
 
 @interface AppDelegate ()
 
@@ -14,9 +15,12 @@
 
 @implementation AppDelegate
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *)options{
+    return [[Twitter sharedInstance] application:app openURL:url options:options];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [[Twitter sharedInstance] startWithConsumerKey:@"KEY_HERE!" consumerSecret:@"SECRET_HERE!"];
     return YES;
 }
 
