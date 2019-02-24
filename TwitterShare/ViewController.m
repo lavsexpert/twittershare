@@ -12,17 +12,26 @@
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
+@property (weak, nonatomic) IBOutlet UITextView *facebookTextiView;
+@property (weak, nonatomic) IBOutlet UITextView *popupTextView;
 
-- (void) configureTweetTextView;
-- (void) showAlertMessage: (NSString *) myMessage;
+- (void) configureTextView :(int) typeView :(UITextView *) view;
+- (void) showAlertMessage :(NSString *) myMessage;
 
 @end
 
 @implementation ViewController
 
+int const TWEET_VIEW = 1;
+int const FACEBOOK_VIEW = 2;
+int const POPUP_VIEW = 3;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureTweetTextView]; // Оформление
+    // Оформление TextView
+    [self configureTextView :TWEET_VIEW :self.tweetTextView];
+    [self configureTextView :FACEBOOK_VIEW :self.facebookTextiView];
+    [self configureTextView :POPUP_VIEW :self.popupTextView];
 }
 
 // Показ сообщения в модальном окне
@@ -97,11 +106,31 @@
 }
 
 // Оформление текстового поля
-- (void) configureTweetTextView{
-    self.tweetTextView.layer.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.9 alpha:1.0].CGColor;
-    self.tweetTextView.layer.cornerRadius = 10.0;
-    self.tweetTextView.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
-    self.tweetTextView.layer.borderWidth = 2.0;
+- (void) configureTextView :(int) typeView :(UITextView*) view{
+    switch (typeView) {
+        case TWEET_VIEW:
+            view.layer.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.9 alpha:1.0].CGColor;
+            view.layer.cornerRadius = 10.0;
+            view.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
+            view.layer.borderWidth = 2.0;
+            break;
+        case FACEBOOK_VIEW:
+            view.layer.backgroundColor = [UIColor colorWithRed:1.0 green:0.9 blue:1.0 alpha:1.0].CGColor;
+            view.layer.cornerRadius = 20.0;
+            view.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
+            view.layer.borderWidth = 3.0;
+            break;
+        case POPUP_VIEW:
+            view.layer.backgroundColor = [UIColor colorWithRed:0.9 green:1.0 blue:1.0 alpha:1.0].CGColor;
+            view.layer.cornerRadius = 30.0;
+            view.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
+            view.layer.borderWidth = 4.0;
+            break;
+
+        default:
+            break;
+    }
+
 }
 
 @end
