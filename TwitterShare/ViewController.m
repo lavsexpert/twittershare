@@ -26,6 +26,11 @@ int const TWEET_VIEW = 1;
 int const FACEBOOK_VIEW = 2;
 int const MORE_VIEW = 3;
 
+int const TWEET_BUTTON = 1;
+int const FACEBOOK_BUTTON = 2;
+int const MORE_BUTTON = 3;
+int const POPUP_BUTTON = 4;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Оформление TextView
@@ -43,28 +48,27 @@ int const MORE_VIEW = 3;
 }
 
 - (IBAction)tweetShareAction :(id)sender {
-    [self showShareAction :sender :TWEET_VIEW :self.tweetTextView];
+    [self showShareAction :sender :TWEET_BUTTON :self.tweetTextView];
 }
 - (IBAction)facebookShareAction :(id)sender {
-    [self showShareAction :sender :FACEBOOK_VIEW :self.facebookTextView];
+    [self showShareAction :sender :FACEBOOK_BUTTON :self.facebookTextView];
 }
 - (IBAction)avcShareAction :(id)sender {
-    [self showShareAction :sender :MORE_VIEW :self.moreTextView];
+    [self showShareAction :sender :MORE_BUTTON :self.moreTextView];
 }
 - (IBAction)popupShareAction :(id)sender {
-    [self showShareAction :sender :MORE_VIEW :self.moreTextView];
+    [self showShareAction :sender :POPUP_BUTTON :self.moreTextView];
 }
 
-
 // При нажатии на кнопку
-- (IBAction)showShareAction :(id)sender :(int) typeView :(UITextView *) view{
+- (IBAction)showShareAction :(id)sender :(int) typeButton :(UITextView *) view{
     // Скрываем клавиатуру если она открыта
     if([view isFirstResponder]){
         [view resignFirstResponder];
     }
     
-    switch (typeView) {
-        case TWEET_VIEW:
+    switch (typeButton) {
+        case TWEET_BUTTON:
             if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
                 SLComposeViewController *twitterVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
                 
@@ -83,7 +87,7 @@ int const MORE_VIEW = 3;
             }
             break;
             
-        case FACEBOOK_VIEW:
+        case FACEBOOK_BUTTON:
             if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
                 //[self showShareAction:@"Фейсбук доступен"];
                 SLComposeViewController *facebookVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
@@ -94,12 +98,12 @@ int const MORE_VIEW = 3;
             }
             break;
             
-        case MORE_VIEW:
-            /*
-             UIActivityViewController *moreVC = [UIActivityViewController alloc];
-             [moreVC initWithActivityItems:@[view.text] applicationActivities:nil];
-             [self presentViewController:moreVC animated:YES completion:nil];
-             */
+        case MORE_BUTTON:
+            [self showAlertMessage:@"There must be more action"];
+            break;
+            
+        case POPUP_BUTTON:
+            [self showAlertMessage:@"This doesn't do anithing"];
             break;
             
         default:
