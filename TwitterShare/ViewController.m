@@ -39,7 +39,6 @@ int const POPUP_BUTTON = 4;
     [self configureTextView :MORE_VIEW :self.moreTextView];
 }
 
-// Показ сообщения в модальном окне
 - (void) showAlertMessage: (NSString *) myMessage{
     UIAlertController *alertController;
     alertController = [UIAlertController alertControllerWithTitle:@"Share" message:myMessage preferredStyle:UIAlertControllerStyleAlert];
@@ -60,9 +59,7 @@ int const POPUP_BUTTON = 4;
     [self showShareAction :sender :POPUP_BUTTON :self.moreTextView];
 }
 
-// При нажатии на кнопку
 - (IBAction)showShareAction :(id)sender :(int) typeButton :(UITextView *) view{
-    // Скрываем клавиатуру если она открыта
     if([view isFirstResponder]){
         [view resignFirstResponder];
     }
@@ -72,7 +69,6 @@ int const POPUP_BUTTON = 4;
             if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
                 SLComposeViewController *twitterVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
                 
-                // Отправляем текст в Twitter (обрезая до 140 символов, если он длиннее)
                 if([view.text length] < 140){
                     [twitterVC setInitialText:view.text];
                 } else {
@@ -81,7 +77,6 @@ int const POPUP_BUTTON = 4;
                 }
                 [self presentViewController:twitterVC animated:YES completion:nil];
                 
-                // Если не удалось подключиться к Twitter - сообщаем об этом
             } else {
                 [self showAlertMessage:@"Please, sign to Twitter"];
             }
@@ -89,7 +84,6 @@ int const POPUP_BUTTON = 4;
             
         case FACEBOOK_BUTTON:
             if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
-                //[self showShareAction:@"Фейсбук доступен"];
                 SLComposeViewController *facebookVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
                 [facebookVC setInitialText:view.text];
                 [self presentViewController:facebookVC animated:YES completion:nil];
@@ -115,15 +109,12 @@ int const POPUP_BUTTON = 4;
             UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Share" message:@"" preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
-            
             UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:@"Tweet" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                     [self showShareAction :sender :TWEET_BUTTON :self.tweetTextView];
             }];
-
             UIAlertAction *facebookAction = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                 [self showShareAction :sender :FACEBOOK_BUTTON :self.facebookTextView];
             }];
-
             UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"More" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                 [self showShareAction :sender :MORE_BUTTON :self.moreTextView];
             }];
@@ -132,9 +123,7 @@ int const POPUP_BUTTON = 4;
             [actionController addAction:facebookAction];
             [actionController addAction:moreAction];
             [actionController addAction:cancelAction];
-            
             [self presentViewController:actionController animated:YES completion:nil];
-            //[self showAlertMessage:@"This doesn't do anithing"];
             break;
             
     }
