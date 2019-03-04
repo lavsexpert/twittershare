@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "Social/Social.h"
 
-@interface ViewController ()
+@interface ViewController()
 
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
 @property (weak, nonatomic) IBOutlet UITextView *facebookTextView;
@@ -99,15 +99,44 @@ int const POPUP_BUTTON = 4;
             break;
             
         case MORE_BUTTON:
-            [self showAlertMessage:@"There must be more action"];
+            if([UIActivityViewController alloc]){
+                UIActivityViewController *moreVC = [[UIActivityViewController alloc] initWithActivityItems:@[self.moreTextView.text] applicationActivities:nil];
+                [self presentViewController:moreVC animated:YES completion:nil];
+            } else {
+                [self showAlertMessage:@"We have a problem with Dialog"];
+            }
             break;
             
         case POPUP_BUTTON:
-            [self showAlertMessage:@"This doesn't do anithing"];
+            if(![UIActivityViewController alloc]){
+                break;
+            }
+
+            UIAlertController *actionController = [UIAlertController alertControllerWithTitle:@"Share" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
+            
+            UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:@"Tweet" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                    [self showShareAction :sender :TWEET_BUTTON :self.tweetTextView];
+            }];
+
+            UIAlertAction *facebookAction = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [self showShareAction :sender :FACEBOOK_BUTTON :self.facebookTextView];
+            }];
+
+            UIAlertAction *moreAction = [UIAlertAction actionWithTitle:@"More" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [self showShareAction :sender :MORE_BUTTON :self.moreTextView];
+            }];
+
+            [actionController addAction:tweetAction];
+            [actionController addAction:facebookAction];
+            [actionController addAction:moreAction];
+            [actionController addAction:cancelAction];
+            
+            [self presentViewController:actionController animated:YES completion:nil];
+            //[self showAlertMessage:@"This doesn't do anithing"];
             break;
             
-        default:
-            break;
     }
 }
 
